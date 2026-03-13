@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Julian Vance — Track Record</title>
+    <style>
+        :root {
+            --cobalt: #2950db;
+            --white: #ffffff;
+            --bg-gray: #e6e8eb;
+            --faint-white: rgba(255, 255, 255, 0.2);
+            --watermark: rgba(255, 255, 255, 0.04);
+
+            --font-display: "Arial Black", "Impact", "Helvetica Neue", sans-serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            background-color: var(--bg-gray);
+            font-family: var(--font-sans);
+            color: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bg-context {
+            position: absolute;
+            color: rgba(0, 0, 0, 0.04);
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            white-space: nowrap;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .bg-context.t1 { top: 5%; left: 10%; }
+        .bg-context.t2 { top: 15%; right: 15%; }
+        .bg-context.t3 { bottom: 8%; left: 20%; }
+        .bg-context.t4 { bottom: 12%; right: 10%; }
+
+        .canvas-wrapper {
+            position: relative;
+            width: 90vw;
+            max-width: 1300px;
+            height: 75vh;
+            min-height: 600px;
+            z-index: 1;
+            display: flex;
+        }
+
+        .main-card {
+            background-color: var(--cobalt);
+            flex-grow: 1;
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 3rem 4rem;
+        }
+
+        .side-tab {
+            background-color: var(--white);
+            width: 40px;
+            height: 85%;
+            margin-top: auto;
+            margin-bottom: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .side-tab span {
+            color: var(--cobalt);
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: 1.2rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 4rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
+        .icons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .icon-circle {
+            width: 24px;
+            height: 24px;
+            border: 1px solid var(--faint-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-circle svg {
+            width: 10px;
+            height: 10px;
+            fill: var(--white);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+            flex-grow: 1;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .label-group {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .label-line {
+            height: 1px;
+            background-color: var(--white);
+            width: 40px;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: clamp(4rem, 8vw, 7rem);
+            line-height: 0.85;
+            text-transform: uppercase;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            transform: scaleX(1.05);
+            transform-origin: left;
+        }
+
+        .hero-bio {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            max-width: 450px;
+            opacity: 0.9;
+        }
+
+        .info-sidebar {
+            padding-top: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            text-align: right;
+        }
+
+        .info-sidebar h3 {
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+
+        .info-sidebar p {
+            font-size: 0.75rem;
+            line-height: 1.4;
+            max-width: 250px;
+            margin-bottom: 2rem;
+        }
+
+        .system-specs {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--faint-white);
+        }
+
+        .structural-divider {
+            position: relative;
+            width: 70%;
+            height: 1px;
+            background-color: var(--faint-white);
+            margin: 2rem 0;
+            z-index: 2;
+        }
+
+        .structural-divider::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -1px;
+            width: 3px;
+            height: 3px;
+            background-color: var(--white);
+            border-radius: 50%;
+        }
+
+        .exits-row {
+            display: flex;
+            gap: 4rem;
+            position: relative;
+            z-index: 2;
+            margin-top: auto;
+        }
+
+        .exit-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .exit-label {
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.7;
+            font-weight: 700;
+        }
+
+        .exit-value {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            letter-spacing: -0.01em;
+            text-transform: uppercase;
+        }
+
+        .watermark {
+            position: absolute;
+            bottom: -5%;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-family: var(--font-display);
+            font-size: clamp(8rem, 16vw, 22rem);
+            line-height: 0.7;
+            color: var(--watermark);
+            text-transform: uppercase;
+            pointer-events: none;
+            z-index: 1;
+            white-space: nowrap;
+            user-select: none;
+        }
+
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-sidebar {
+                align-items: flex-start;
+                text-align: left;
+                padding-top: 0;
+            }
+
+            .structural-divider {
+                width: 100%;
+            }
+
+            .exits-row {
+                flex-wrap: wrap;
+                gap: 2rem;
+            }
+
+            .canvas-wrapper {
+                height: auto;
+                min-height: 85vh;
+            }
+
+            .side-tab {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-context t1">v2.4_final_approved_comp.psd</div>
+    <div class="bg-context t2">Grid System: 12 Col / 24px Gutter</div>
+    <div class="bg-context t3">Asset ID: 894-B-REV</div>
+    <div class="bg-context t4">Print bounds detected</div>
+
+    <div class="canvas-wrapper">
+        <main class="main-card">
+            <div class="top-bar">
+                <nav class="nav-links">
+                    <a href="index.html">Overview</a>
+                    <a href="#">Ventures</a>
+                    <a href="#">Contact</a>
+                </nav>
+                <div class="icons">
+                    <div class="icon-circle">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.49.5.09.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.379.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"></path></svg>
+                    </div>
+                    <div class="icon-circle">
+                        <svg viewBox="0 0 24 24"><path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"></path></svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="hero-section">
+                    <div class="label-group">
+                        <span class="label">ENTREPRENEUR</span>
+                        <div class="label-line"></div>
+                    </div>
+                    <h1>JULIAN<br>VANCE</h1>
+                    <p class="hero-bio">
+                        Operator and builder. Scaled and successfully exited two B2B media properties. Currently exploring the intersection of proprietary data sets and niche publishing workflows.
+                    </p>
+                </div>
+
+                <div class="info-sidebar">
+                    <h3>OPERATIONAL FOCUS</h3>
+                    <p>
+                        Specializing in audience acquisition, recurring revenue models, and operational infrastructure for digital-first media assets.
+                    </p>
+                    <div class="system-specs">
+                        <span>SYS.ID: JV-88.02</span>
+                        <span>LOC: NEW YORK, NY</span>
+                        <span>STATUS: ALLOCATING</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="structural-divider"></div>
+
+            <div class="exits-row">
+                <div class="exit-item">
+                    <span class="exit-label">Acquisition 01</span>
+                    <span class="exit-value">Supply Chain Dive</span>
+                </div>
+                <div class="exit-item">
+                    <span class="exit-label">Acquisition 02</span>
+                    <span class="exit-value">Retail Tech Brief</span>
+                </div>
+                <div class="exit-item">
+                    <span class="exit-label">Current Venture</span>
+                    <span class="exit-value">Stealth Data Co.</span>
+                </div>
+            </div>
+
+            <div class="watermark">TRACK RECORD</div>
+        </main>
+
+        <aside class="side-tab">
+            <span>EXITS</span>
+        </aside>
+    </div>
+</body>
+</html>
